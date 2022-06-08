@@ -1,0 +1,5 @@
+python do_segm.py  --freeze-classifier --unc-noise --lambda-ce 1 --lambda-ent 1 --run_name Exploration_2  --save  /media/rene/Empty/DA/Exploration_2 --lambda-ssl 0.1 --num-classes 40 --batch-size 4  --num-rounds 10
+python do_segm.py  --freeze-classifier --unc-noise --lambda-ce 1 --lambda-ent 1 --run_name Exploration_5  --save  /media/rene/Empty/DA/Exploration_5--lambda-ssl 0.1 --num-classes 40 --batch-size 4  --num-rounds 10
+python do_segm.py  --freeze-classifier --unc-noise --lambda-ce 1 --lambda-ent 1 --run_name Exploration_6  --save  /media/rene/Empty/DA/Exploration_6 --lambda-ssl 0.1 --num-classes 40 --batch-size 4  --num-rounds 10
+python do_segm.py  --freeze-classifier --unc-noise --lambda-ce 1 --lambda-ent 1 --run_name Exploration_7  --save  /media/rene/Empty/DA/Exploration_7 --lambda-ssl 0.1 --num-classes 40 --batch-size 4  --num-rounds 10
+python do_segm.py  --freeze-classifier --unc-noise --lambda-ce 1 --lambda-ent 1 --run_name Random_4  --save  /media/rene/Empty/DA/Random_4 --lambda-ssl 0.1 --num-classes 40 --batch-size 4  --num-rounds 10

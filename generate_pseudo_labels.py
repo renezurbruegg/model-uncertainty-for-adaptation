@@ -16,21 +16,27 @@ from PIL import Image
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-from datasets import CrossCityDataset, get_val_transforms
 from utils import ScoreUpdater, colorize_mask
-
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 osp = os.path
 
+from train_utils import get_train_transforms, get_valid_transforms
+from train_utils import LivingRoomKitchtenDataset
+
+
+path_datasets= "/media/rene/Empty/airsim_paper/clean/livingroom/Dataset/"
 
 def validate_model(model, save_round_eval_path, round_idx, args):
     logger = logging.getLogger('crosscityadap')
     ## Doubles as a pseudo label generator
 
-    val_transforms = get_val_transforms(args)
-    dataset = CrossCityDataset(args.data_tgt_dir,
-                               args.data_tgt_train_list.format(args.city), transforms=val_transforms)
+    # val_transforms = get_val_transforms(args)
+    # dataset = CrossCityDataset(args.data_tgt_dir,
+    #                            args.data_tgt_train_list.format(args.city), transforms=val_transforms)
+    path = path_datasets + args.run_name
+    dataset = LivingRoomKitchtenDataset(path = path, transform=get_valid_transforms(normalize=False))
+
     loader = DataLoader(dataset, batch_size=12, num_workers=4, pin_memory=torch.cuda.is_available())
 
     scorer = ScoreUpdater(args.num_classes, len(loader))
@@ -53,7 +59,10 @@ def validate_model(model, save_round_eval_path, round_idx, args):
     model.eval()
     with torch.no_grad():
         for batch in tqdm(loader):
-            image, label, name = batch
+            # image, label, name = batch
+            image = batch['image']
+            # label = batch['mask']
+            name = batch['name']
 
             image = image.to(device)
             output = model(image).cpu().softmax(1)

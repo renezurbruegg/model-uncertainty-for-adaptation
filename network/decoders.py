@@ -12,8 +12,8 @@ from torch import nn
 from .models.deeplab_multi import Classifier_Module
 
 
-def upsample(num_classes=13):
-    return Classifier_Module(2048, [6, 12, 18, 24], [6, 12, 18, 24], num_classes)
+def upsample(num_classes=40):
+    return Classifier_Module(256, [6, 12, 18, 24], [6, 12, 18, 24], num_classes)
 
 
 class DropOutDecoder(nn.Module):
@@ -34,6 +34,9 @@ class JointSegAuxDecoderModel(nn.Module):
         self.aux_decoders = auxmodule
 
     def forward(self, x, training=False):
+        if self.seg_model.evaluation_mode:
+            return self.seg_model(x)
+
         seg_pred, features = self.seg_model(x, return_features=True)
         if not training:
             return seg_pred

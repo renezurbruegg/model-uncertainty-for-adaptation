@@ -97,6 +97,7 @@ def common_args():
     parser.add_argument('--decoders', default=4, type=int, help='Number of auxiliary decoders')
     parser.add_argument('--dropout', default=0.5, type=float, help='Dropout proba of auxiliary decoders')
     parser.add_argument('-f', '--file', help='quick hack for jupyter')
+    parser.add_argument('--run_name', type=str, default="Curiosity_1")
 
     return parser
 
